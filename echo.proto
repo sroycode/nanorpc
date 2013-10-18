@@ -1,0 +1,19 @@
+// Specs for Echo
+option cc_generic_services = true;
+package echo;
+
+message EchoRequest
+{
+  required string message = 1;
+};
+
+message EchoResponse
+{
+  required string response = 1;
+};
+
+service EchoService
+{
+  rpc Echo1(EchoRequest) returns (EchoResponse);
+  rpc Echo2(EchoRequest) returns (EchoResponse);
+};

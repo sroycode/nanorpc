@@ -1,4 +1,4 @@
 nanorpc
 =======
 
-nanomsg rpc with protobuf
+Protobuf RPC implementation using nanomsg
