@@ -13,5 +13,7 @@
 *.a
 
 # Added
+echo_client
+echo_server
 .libs
 RCS

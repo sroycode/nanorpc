@@ -7,14 +7,14 @@
 * @section LICENSE
 *
 * Copyright (c) 2013 S Roychowdhury
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
 * the Software without restriction, including without limitation the rights to
 * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
 * the Software, and to permit persons to whom the Software is furnished to do so,
 * subject to the following conditions:
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
 * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -73,14 +73,11 @@ void nrpc::RpcServer::Start()
 		char* buf=NULL;
 		int bytes = sock.recv(&buf, NN_MSG, 0);
 		if (bytes<=0) continue;
-std::cerr << bytes << std::endl;
 		memcpy((char*)(&opcode), buf, sizeof(opcode));
-		// opcode = ntohl(opcode);
-std::cerr << opcode << std::endl;
-			RpcMethodMap::const_iterator iter = rpc_method_map_.find(opcode);
-			if (iter == rpc_method_map_.end()) {
-				continue;
-			}
+		RpcMethodMap::const_iterator iter = rpc_method_map_.find(opcode);
+		if (iter == rpc_method_map_.end()) {
+			continue;
+		}
 		RpcMethod *rpc_method = iter->second;
 		const google::protobuf::MethodDescriptor *method = rpc_method->method_;
 		google::protobuf::Message *request = rpc_method->request_->New();
