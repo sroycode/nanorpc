@@ -61,8 +61,13 @@ public:
 	}
 };
 
+void OnExit(int sig) {
+	std::cerr << "Exiting on ^C " << sig << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
+	signal(SIGINT, OnExit);
 	try {
 		nrpc::RpcServer rpc_server(ECHO_ENDPOINT_PORT);
 		::google::protobuf::Service *service = new EchoServiceImpl();

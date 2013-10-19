@@ -34,25 +34,20 @@
 #include <iostream>
 
 nrpc::RpcServer::RpcServer(const char* url) :
-	sock(AF_SP, NN_REP)
+	sock(AF_SP, NN_REP),
+	sockid(sock.bind(url))
 {
-	sock.bind(url);
 }
 
 nrpc::RpcServer::~RpcServer()
 {
-	RpcMethodMap::iterator iter;
-	for (iter = rpc_method_map_.begin(); iter != rpc_method_map_.end();) {
-		RpcMethod *rpc_method = iter->second;
-		++iter;
-		delete rpc_method;
-	}
-	sock.shutdown (0);
+	sock.shutdown(0);
 }
 
 void nrpc::RpcServer::EndPoint(const char* url)
 {
-	sock.bind(url);
+	// RemoveService();
+	// Close();
 }
 
 void nrpc::RpcServer::RegisterService(google::protobuf::Service *service)
@@ -65,9 +60,12 @@ void nrpc::RpcServer::RegisterService(google::protobuf::Service *service)
 		RpcMethod *rpc_method = new RpcMethod(service, request, response, method);
 		std::string methodname=std::string(method->full_name());
 		uint64_t hash = ::CityHash64(methodname.c_str(),methodname.length());
-		rpc_method_map_[hash] = rpc_method;
+		RpcMethodMap::const_iterator iter = rpc_method_map_.find(hash);
+		if (iter == rpc_method_map_.end())
+			rpc_method_map_[hash] = rpc_method;
 	}
 }
+
 
 void nrpc::RpcServer::Start()
 {
@@ -95,5 +93,23 @@ void nrpc::RpcServer::Start()
 		delete request;
 		delete response;
 		nn::freemsg(buf);
+	}
+}
+
+void nrpc::RpcServer::RemoveService()
+{
+	RpcMethodMap::iterator iter;
+	for (RpcMethodMap::iterator it = rpc_method_map_.begin(); it != rpc_method_map_.end();) {
+		RpcMethod *rpc_method = it->second;
+		++it;
+		delete rpc_method;
+	}
+}
+
+void nrpc::RpcServer::Close()
+{
+	if (sockid>0) {
+		sock.shutdown (0);
+		sockid=0;
 	}
 }

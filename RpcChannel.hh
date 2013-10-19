@@ -49,8 +49,8 @@ public:
 
 	void Close();
 private:
-	const std::string url_;
 	nn::socket sock;
+	int sockid;
 };
 }
 #endif

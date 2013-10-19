@@ -30,32 +30,36 @@
 #ifndef _NRPC_SERVER_HH_
 #define _NRPC_SERVER_HH_
 
+#include <string>
+#include <map>
 #include <nanomsg/nn.h>
 #include <nanomsg/reqrep.h>
 #include "nn.hpp"
-
-#include <map>
-#include <string>
-
 
 #include "RpcMethod.hpp"
 
 namespace nrpc {
 
 class RpcServer {
-
+	typedef std::map<uint64_t,RpcMethod*> RpcMethodMap;
 public:
 	RpcServer(const char* url);
 	~RpcServer();
 	// add more endpoints
 	void EndPoint(const char* url);
+	// start 
 	void Start();
+	// register a service
 	void RegisterService(google::protobuf::Service *service);
+	// remove all services
+	void RemoveService();
+	// close
+	void Close();
 
 private:
 	nn::socket sock;
-	typedef std::map<uint64_t,RpcMethod*> RpcMethodMap;
+	int sockid;
 	RpcMethodMap rpc_method_map_;
 };
-};
+}
 #endif

@@ -33,14 +33,14 @@
 #include <iostream>
 
 nrpc::RpcChannel::RpcChannel(const char* url) :
-	sock(AF_SP, NN_REQ)
+	sock(AF_SP, NN_REQ),
+	sockid(sock.connect(url))
 {
-	sock.connect(url);
 }
 
 nrpc::RpcChannel::~RpcChannel()
 {
-	// sock.shutdown(0);
+		// Close();
 }
 
 void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
@@ -65,7 +65,8 @@ void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* meth
 
 void nrpc::RpcChannel::Close()
 {
-	std::cerr << "shutdown pre " << std::endl;
-	sock.shutdown (0);
-	std::cerr << "shutdown post " << std::endl;
+	if (sockid>0) {
+		sock.shutdown (0);
+		sockid=0;
+	}
 }
