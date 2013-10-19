@@ -10,9 +10,14 @@ LDFLAGS += -L/usr/local/lib
 PROTOC = protoc
 MKDIR  = mkdir -p
 
-PROTO_LDFLAGS = -lprotobuf
-NANOMSG_LDFLAGS = -lnanomsg
-CITYHASH_LDFLAGS = -lcityhash
+PROTO_INCLUDE = -I/opt/local/include
+PROTO_LDFLAGS = -L/opt/local/lib -lprotobuf
+
+NANOMSG_INCLUDE = -I/usr/local/include
+NANOMSG_LDFLAGS = -L/usr/local/lib -lnanomsg
+
+CITYHASH_INCLUDE = -I/usr/local/include
+CITYHASH_LDFLAGS = -L/usr/local/lib -lcityhash
 
 USE_LDFLAGS = $(PROTO_LDFLAGS) $(CITYHASH_LDFLAGS) $(NANOMSG_LDFLAGS) 
 
@@ -54,4 +59,4 @@ echo.pb.cc echo.pb.h: echo.proto
 	$(PROTOC) --cpp_out=. echo.proto
 
 clean:
-	rm -f EchoClient EchoServer $(TMPLIB)/*.o
+	rm -f echo_client echo_server $(TMPLIB)/*.o
