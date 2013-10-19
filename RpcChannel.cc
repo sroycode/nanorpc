@@ -62,6 +62,7 @@ void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* meth
 	nn::freemsg(buf);
 	sock.recv(&buf, NN_MSG, 0);
 	response->ParseFromString(buf);
+	nn::freemsg(buf);
 }
 
 void nrpc::RpcChannel::Close()
