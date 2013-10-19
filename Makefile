@@ -46,10 +46,10 @@ $(TMPLIB)/Channel.o:	RpcChannel.cc RpcChannel.hh
 $(TMPLIB)/Server.o:	RpcServer.cc RpcServer.hh
 	$(CC) -c $(CCFLAGS) RpcServer.cc -o  $(TMPLIB)/Server.o
 
-$(TMPLIB)/EchoClient.o:	EchoClient.cc EchoCommon.hh
+$(TMPLIB)/EchoClient.o:	EchoClient.cc EchoEndpoint.hh
 	$(CC) -c $(CCFLAGS) EchoClient.cc -o  $(TMPLIB)/EchoClient.o
 
-$(TMPLIB)/EchoServer.o:	EchoServer.cc EchoCommon.hh
+$(TMPLIB)/EchoServer.o:	EchoServer.cc EchoEndpoint.hh
 	$(CC) -c $(CCFLAGS) EchoServer.cc -o  $(TMPLIB)/EchoServer.o
 
 $(TMPLIB)/echo.pb.o:	echo.pb.cc echo.pb.h

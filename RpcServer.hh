@@ -45,15 +45,15 @@ namespace nrpc {
 class RpcServer {
 
 public:
-	RpcServer(const std::string url, size_t io_threads);
+	RpcServer(const char* url);
 	~RpcServer();
+	// add more endpoints
+	void EndPoint(const char* url);
 	void Start();
 	void RegisterService(google::protobuf::Service *service);
 
 private:
 	nn::socket sock;
-	const std::string url_;
-	const size_t io_threads_;
 	typedef std::map<uint64_t,RpcMethod*> RpcMethodMap;
 	RpcMethodMap rpc_method_map_;
 };

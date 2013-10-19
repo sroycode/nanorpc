@@ -32,14 +32,14 @@
 #include "RpcChannel.hh"
 #include "echo.pb.h"
 
-#include "EchoCommon.hh"
+#include "EchoEndpoint.hh"
 
 int main(int argc, char *argv[])
 {
 	try {
 		echo::EchoRequest request;
 		request.set_message("123456789012345678901234567890123456");
-		nrpc::RpcChannel rpc_channel(ECHO_ENDPOINT);
+		nrpc::RpcChannel rpc_channel(ECHO_ENDPOINT_PORT);
 		echo::EchoService::Stub stub(&rpc_channel);
 		echo::EchoResponse response;
 		stub.Echo1(NULL, &request, &response, NULL);

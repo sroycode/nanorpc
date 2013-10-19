@@ -1,6 +1,6 @@
 /**
 * @project nanorpc
-* @file RpcChannel.hh
+* @file EchoCommon.hh
 * @author  S Roychowdhury <sroycode AT gmail DOT com>
 * @version 1.0
 *
@@ -24,33 +24,13 @@
 *
 * @section DESCRIPTION
 *
-* RpcChannel Headers for client
+* example: echo endpoint only
 *
 */
-#ifndef _NRPC_CHANNEL_HH_
-#define _NRPC_CHANNEL_HH_
-#include <nanomsg/nn.h>
-#include <nanomsg/reqrep.h>
-#include "nn.hpp"
-#include <google/protobuf/service.h>
-#include <google/protobuf/message.h>
-#include <string>
+#ifndef _NRPC_ECHO_ENDPOINT_HH_
+#define _NRPC_ECHO_ENDPOINT_HH_
 
-namespace nrpc {
-class RpcChannel : public google::protobuf::RpcChannel {
-public:
-	RpcChannel(const char* url);
-	virtual ~RpcChannel();
-	virtual void CallMethod(const google::protobuf::MethodDescriptor* method,
-	                        google::protobuf::RpcController* controller,
-	                        const google::protobuf::Message* request,
-	                        google::protobuf::Message* response,
-	                        google::protobuf::Closure* done);
+#define ECHO_ENDPOINT_PORT "tcp://127.0.0.1:9999"
+#define ECHO_ENDPOINT_FILE "ipc:///tmp/echo.sock"
 
-	void Close();
-private:
-	const std::string url_;
-	nn::socket sock;
-};
-}
 #endif

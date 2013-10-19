@@ -33,12 +33,10 @@
 #include "RpcServer.hh"
 #include <iostream>
 
-nrpc::RpcServer::RpcServer(const std::string url, size_t io_threads) :
-	sock(AF_SP, NN_REP),
-	url_(url),
-	io_threads_(io_threads_)
+nrpc::RpcServer::RpcServer(const char* url) :
+	sock(AF_SP, NN_REP)
 {
-	sock.bind(url_.c_str());
+	sock.bind(url);
 }
 
 nrpc::RpcServer::~RpcServer()
@@ -50,6 +48,11 @@ nrpc::RpcServer::~RpcServer()
 		delete rpc_method;
 	}
 	sock.shutdown (0);
+}
+
+void nrpc::RpcServer::EndPoint(const char* url)
+{
+	sock.bind(url);
 }
 
 void nrpc::RpcServer::RegisterService(google::protobuf::Service *service)

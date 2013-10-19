@@ -32,10 +32,10 @@
 #include <city.h>
 #include <iostream>
 
-nrpc::RpcChannel::RpcChannel(const std::string url) :
+nrpc::RpcChannel::RpcChannel(const char* url) :
 	sock(AF_SP, NN_REQ)
 {
-	sock.connect(url.c_str());
+	sock.connect(url);
 }
 
 nrpc::RpcChannel::~RpcChannel()

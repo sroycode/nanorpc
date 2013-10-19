@@ -33,7 +33,7 @@
 #include <iostream>
 #include "RpcServer.hh"
 #include "echo.pb.h"
-#include "EchoCommon.hh"
+#include "EchoEndpoint.hh"
 
 class EchoServiceImpl : public echo::EchoService {
 public:
@@ -64,7 +64,7 @@ public:
 int main(int argc, char *argv[])
 {
 	try {
-		nrpc::RpcServer rpc_server(ECHO_ENDPOINT, 1);
+		nrpc::RpcServer rpc_server(ECHO_ENDPOINT_PORT);
 		::google::protobuf::Service *service = new EchoServiceImpl();
 		rpc_server.RegisterService(service);
 		rpc_server.Start();
