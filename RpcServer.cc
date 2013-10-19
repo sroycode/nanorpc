@@ -41,13 +41,13 @@ nrpc::RpcServer::RpcServer(const char* url) :
 
 nrpc::RpcServer::~RpcServer()
 {
-	sock.shutdown(0);
+	RemoveService();
+	// Close();
 }
 
 void nrpc::RpcServer::EndPoint(const char* url)
 {
-	// RemoveService();
-	// Close();
+	sock.bind(url);
 }
 
 void nrpc::RpcServer::RegisterService(google::protobuf::Service *service)
