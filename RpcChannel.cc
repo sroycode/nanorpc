@@ -40,9 +40,7 @@ nrpc::RpcChannel::RpcChannel(const char* url) :
 
 nrpc::RpcChannel::~RpcChannel()
 {
-	// std::cerr << "shutdown pre " << std::endl;
 	// sock.shutdown(0);
-	// std::cerr << "shutdown post " << std::endl;
 }
 
 void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
@@ -67,5 +65,7 @@ void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* meth
 
 void nrpc::RpcChannel::Close()
 {
+	std::cerr << "shutdown pre " << std::endl;
 	sock.shutdown (0);
+	std::cerr << "shutdown post " << std::endl;
 }
