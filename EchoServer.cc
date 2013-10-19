@@ -31,7 +31,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <iostream>
-#include "Server.hh"
+#include "RpcServer.hh"
 #include "echo.pb.h"
 #include "EchoCommon.hh"
 
@@ -64,7 +64,7 @@ public:
 int main(int argc, char *argv[])
 {
 	try {
-		nrpc::Server rpc_server(ECHO_ENDPOINT, 1);
+		nrpc::RpcServer rpc_server(ECHO_ENDPOINT, 1);
 		::google::protobuf::Service *service = new EchoServiceImpl();
 		rpc_server.RegisterService(service);
 		rpc_server.Start();

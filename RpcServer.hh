@@ -1,6 +1,6 @@
 /**
 * @project nanorpc
-* @file Server.hh
+* @file RpcServer.hh
 * @author  S Roychowdhury <sroycode AT gmail DOT com>
 * @version 1.0
 *
@@ -24,7 +24,7 @@
 *
 * @section DESCRIPTION
 *
-* Server Headers
+* RpcServer Headers
 *
 */
 #ifndef _NRPC_SERVER_HH_
@@ -42,11 +42,11 @@
 
 namespace nrpc {
 
-class Server {
+class RpcServer {
 
 public:
-	Server(const std::string url, size_t io_threads);
-	~Server();
+	RpcServer(const std::string url, size_t io_threads);
+	~RpcServer();
 	void Start();
 	void RegisterService(google::protobuf::Service *service);
 

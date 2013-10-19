@@ -40,11 +40,11 @@ echo_client:	$(SOURCES) $(TMPLIB)/EchoClient.o
 echo_server:	$(SOURCES) $(TMPLIB)/EchoServer.o
 	$(CC) $(CCFLAGS) $(LDFLAGS) $(USE_LDFLAGS) -o echo_server $(SOURCES) $(TMPLIB)/EchoServer.o
 
-$(TMPLIB)/Channel.o:	Channel.cc Channel.hh
-	$(CC) -c $(CCFLAGS) Channel.cc -o  $(TMPLIB)/Channel.o
+$(TMPLIB)/Channel.o:	RpcChannel.cc RpcChannel.hh
+	$(CC) -c $(CCFLAGS) RpcChannel.cc -o  $(TMPLIB)/Channel.o
 
-$(TMPLIB)/Server.o:	Server.cc Server.hh
-	$(CC) -c $(CCFLAGS) Server.cc -o  $(TMPLIB)/Server.o
+$(TMPLIB)/Server.o:	RpcServer.cc RpcServer.hh
+	$(CC) -c $(CCFLAGS) RpcServer.cc -o  $(TMPLIB)/Server.o
 
 $(TMPLIB)/EchoClient.o:	EchoClient.cc EchoCommon.hh
 	$(CC) -c $(CCFLAGS) EchoClient.cc -o  $(TMPLIB)/EchoClient.o

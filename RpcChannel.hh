@@ -1,6 +1,6 @@
 /**
 * @project nanorpc
-* @file Channel.hh
+* @file RpcChannel.hh
 * @author  S Roychowdhury <sroycode AT gmail DOT com>
 * @version 1.0
 *
@@ -24,7 +24,7 @@
 *
 * @section DESCRIPTION
 *
-* Channel Headers for client
+* RpcChannel Headers for client
 *
 */
 #ifndef _NRPC_CHANNEL_HH_
@@ -37,10 +37,10 @@
 #include <string>
 
 namespace nrpc {
-class Channel : public google::protobuf::RpcChannel {
+class RpcChannel : public google::protobuf::RpcChannel {
 public:
-	Channel(const std::string url);
-	virtual ~Channel();
+	RpcChannel(const std::string url);
+	virtual ~RpcChannel();
 	virtual void CallMethod(const google::protobuf::MethodDescriptor* method,
 	                        google::protobuf::RpcController* controller,
 	                        const google::protobuf::Message* request,

@@ -1,6 +1,6 @@
 /**
 * @project nanorpc
-* @file Server.cc
+* @file RpcServer.cc
 * @author  S Roychowdhury <sroycode AT gmail DOT com>
 * @version 1.0
 *
@@ -24,16 +24,16 @@
 *
 * @section DESCRIPTION
 *
-* Server Implementation
+* RpcServer Implementation
 *
 */
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/stubs/common.h>
 #include <city.h>
-#include "Server.hh"
+#include "RpcServer.hh"
 #include <iostream>
 
-nrpc::Server::Server(const std::string url, size_t io_threads) :
+nrpc::RpcServer::RpcServer(const std::string url, size_t io_threads) :
 	sock(AF_SP, NN_REP),
 	url_(url),
 	io_threads_(io_threads_)
@@ -41,7 +41,7 @@ nrpc::Server::Server(const std::string url, size_t io_threads) :
 	sock.bind(url_.c_str());
 }
 
-nrpc::Server::~Server()
+nrpc::RpcServer::~RpcServer()
 {
 	RpcMethodMap::iterator iter;
 	for (iter = rpc_method_map_.begin(); iter != rpc_method_map_.end();) {
@@ -52,7 +52,7 @@ nrpc::Server::~Server()
 	sock.shutdown (0);
 }
 
-void nrpc::Server::RegisterService(google::protobuf::Service *service)
+void nrpc::RpcServer::RegisterService(google::protobuf::Service *service)
 {
 	const google::protobuf::ServiceDescriptor *descriptor = service->GetDescriptor();
 	for (int i = 0; i < descriptor->method_count(); ++i) {
@@ -66,7 +66,7 @@ void nrpc::Server::RegisterService(google::protobuf::Service *service)
 	}
 }
 
-void nrpc::Server::Start()
+void nrpc::RpcServer::Start()
 {
 	uint64_t opcode = 0;
 	while (1) {

@@ -1,6 +1,6 @@
 /**
 * @project nanorpc
-* @file Channel.cc
+* @file RpcChannel.cc
 * @author  S Roychowdhury <sroycode AT gmail DOT com>
 * @version 1.0
 *
@@ -28,24 +28,24 @@
 *
 */
 #include <google/protobuf/descriptor.h>
-#include "Channel.hh"
+#include "RpcChannel.hh"
 #include <city.h>
 #include <iostream>
 
-nrpc::Channel::Channel(const std::string url) :
+nrpc::RpcChannel::RpcChannel(const std::string url) :
 	sock(AF_SP, NN_REQ)
 {
 	sock.connect(url.c_str());
 }
 
-nrpc::Channel::~Channel()
+nrpc::RpcChannel::~RpcChannel()
 {
 	// std::cerr << "shutdown pre " << std::endl;
 	// sock.shutdown(0);
 	// std::cerr << "shutdown post " << std::endl;
 }
 
-void nrpc::Channel::CallMethod(const google::protobuf::MethodDescriptor* method,
+void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
                                google::protobuf::RpcController* controller,
                                const google::protobuf::Message* request,
                                google::protobuf::Message* response,
@@ -64,7 +64,7 @@ void nrpc::Channel::CallMethod(const google::protobuf::MethodDescriptor* method,
 	response->ParseFromString(buf);
 }
 
-void nrpc::Channel::Close()
+void nrpc::RpcChannel::Close()
 {
 	sock.shutdown (0);
 }
