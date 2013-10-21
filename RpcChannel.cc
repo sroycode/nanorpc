@@ -40,7 +40,7 @@ nrpc::RpcChannel::RpcChannel(const char* url) :
 
 nrpc::RpcChannel::~RpcChannel()
 {
-		// Close();
+	Close();
 }
 
 void nrpc::RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,

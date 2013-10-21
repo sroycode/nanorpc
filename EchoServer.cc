@@ -61,7 +61,8 @@ public:
 	}
 };
 
-void OnExit(int sig) {
+void OnExit(int sig)
+{
 	std::cerr << "Exiting on ^C " << sig << std::endl;
 }
 

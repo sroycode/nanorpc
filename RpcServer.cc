@@ -42,7 +42,7 @@ nrpc::RpcServer::RpcServer(const char* url) :
 nrpc::RpcServer::~RpcServer()
 {
 	RemoveService();
-	// Close();
+	Close();
 }
 
 void nrpc::RpcServer::EndPoint(const char* url)

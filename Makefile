@@ -23,22 +23,19 @@ USE_LDFLAGS = $(PROTO_LDFLAGS) $(CITYHASH_LDFLAGS) $(NANOMSG_LDFLAGS)
 
 TMPLIB = .libs
 
-SOURCES = \
-	$(TMPLIB)/Server.o \
-	$(TMPLIB)/Channel.o \
-	$(TMPLIB)/echo.pb.o
-
+SERVER_SOURCES = $(TMPLIB)/Server.o $(TMPLIB)/echo.pb.o
+CHANNEL_SOURCES = $(TMPLIB)/Channel.o $(TMPLIB)/echo.pb.o
 
 all:	mkdir echo_client echo_server
 
 mkdir:
 	$(MKDIR) $(TMPLIB)
 
-echo_client:	$(SOURCES) $(TMPLIB)/EchoClient.o
-	$(CC) $(CCFLAGS) $(LDFLAGS) $(USE_LDFLAGS) -o echo_client $(SOURCES) $(TMPLIB)/EchoClient.o
+echo_client:	$(CHANNEL_SOURCES) $(TMPLIB)/EchoClient.o
+	$(CC) $(CCFLAGS) $(LDFLAGS) $(USE_LDFLAGS) -o echo_client $(CHANNEL_SOURCES) $(TMPLIB)/EchoClient.o
 
-echo_server:	$(SOURCES) $(TMPLIB)/EchoServer.o
-	$(CC) $(CCFLAGS) $(LDFLAGS) $(USE_LDFLAGS) -o echo_server $(SOURCES) $(TMPLIB)/EchoServer.o
+echo_server:	$(SERVER_SOURCES) $(TMPLIB)/EchoServer.o
+	$(CC) $(CCFLAGS) $(LDFLAGS) $(USE_LDFLAGS) -o echo_server $(SERVER_SOURCES) $(TMPLIB)/EchoServer.o
 
 $(TMPLIB)/Channel.o:	RpcChannel.cc RpcChannel.hh
 	$(CC) -c $(CCFLAGS) RpcChannel.cc -o  $(TMPLIB)/Channel.o

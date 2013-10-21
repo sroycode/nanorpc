@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 		request.set_message("654321098765432109876543210987654321");
 		stub.Echo2(NULL, &request, &response, NULL);
 		std::cerr << response.response().c_str() << std::endl;
-		// rpc_channel.Close();
 
 	} catch (nn::exception& e) {
 		std::cerr << "NN EXCEPTION : " << e.what() << std::endl;

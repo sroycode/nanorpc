@@ -47,7 +47,7 @@ public:
 	~RpcServer();
 	// add more endpoints
 	void EndPoint(const char* url);
-	// start 
+	// start
 	void Start();
 	// register a service
 	void RegisterService(google::protobuf::Service *service);
